@@ -79,7 +79,7 @@ var GameUtil;
             if (offx === void 0) { offx = 0; }
             if (offy === void 0) { offy = 0; }
             if (this.btnImg.texture != null) {
-                console.log("fdsafdsafdsa=====", this.btnImg.texture.$getTextureWidth() / 2);
+                // console.log("fdsafdsafdsa=====",this.btnImg.texture.$getTextureWidth()/2);
                 this.mTextField = new GameUtil.MyTextField(offx, offy, size); //createTextField(this.btnImg.texture.$getTextureWidth()/2+offx,this.btnImg.texture.$getTextureHeight()/2+offy,20);
             }
             else {

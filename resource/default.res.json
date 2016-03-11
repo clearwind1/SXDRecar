@@ -1,7 +1,7 @@
 {
 	"groups":[
 	{
-		"keys":"bgImage,egretIcon,loadingbar_png",
+		"keys":"bgImage,egretIcon,frame_png,card0_png,cardback_png",
 		"name":"preload"
 	},
 	{
@@ -28,5 +28,20 @@
 		"name":"description",
 		"type":"json",
 		"url":"config/description.json"
+	},
+	{
+		"name":"frame_png",
+		"type":"image",
+		"url":"assets/frame.png"
+	},
+	{
+		"name":"card0_png",
+		"type":"image",
+		"url":"assets/card0.png"
+	},
+	{
+		"name":"cardback_png",
+		"type":"image",
+		"url":"assets/cardback.png"
 	}]
 }

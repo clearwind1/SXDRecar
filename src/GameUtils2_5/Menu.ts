@@ -95,7 +95,7 @@ module GameUtil
         public addButtonText(text:string,size:number,offx:number=0,offy:number=0):void
         {
             if(this.btnImg.texture != null){
-                console.log("fdsafdsafdsa=====",this.btnImg.texture.$getTextureWidth()/2);
+               // console.log("fdsafdsafdsa=====",this.btnImg.texture.$getTextureWidth()/2);
                 this.mTextField = new GameUtil.MyTextField(offx,offy,size);//createTextField(this.btnImg.texture.$getTextureWidth()/2+offx,this.btnImg.texture.$getTextureHeight()/2+offy,20);
             }
             else

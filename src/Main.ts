@@ -52,11 +52,14 @@ class Main extends egret.DisplayObjectContainer {
      */
     private createGameScene():void {
 
+        if(window.screen.availHeight < window.screen.availWidth){
+            this.stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
+        }
+
+        //console.log('w====',this.stage.stageWidth,'h======',this.stage.stageHeight);
+
         GameUtil.GameConfig._i().setStageHeight(this.stage.stageHeight);
-
-        var sky:GameUtil.MyBitmap = new GameUtil.MyBitmap(RES.getRes("bgImage"),this.stage.stageWidth/2,this.stage.stageHeight/2);
-        this.addChild(sky);
-
+        GameUtil.GameScene.runscene(new GameStartScene());
 
     }
 

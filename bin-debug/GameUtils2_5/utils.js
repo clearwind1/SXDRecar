@@ -173,12 +173,6 @@ var GameUtil;
         else {
             return y;
         }
-        //var result: number = GameConfig._i().getSH() - (GameUtil.GameConfig.DesignHeight-y);
-        //if(result < 0){
-        //    result = -result;
-        //}
-        //
-        //return result;
     }
     GameUtil.setscreenY = setscreenY;
 })(GameUtil || (GameUtil = {}));

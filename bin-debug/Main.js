@@ -43,15 +43,12 @@ var Main = (function (_super) {
      * Create a game scene
      */
     p.createGameScene = function () {
+        if (window.screen.availHeight < window.screen.availWidth) {
+            this.stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
+        }
+        //console.log('w====',this.stage.stageWidth,'h======',this.stage.stageHeight);
         GameUtil.GameConfig._i().setStageHeight(this.stage.stageHeight);
-        var sky = new GameUtil.MyBitmap(RES.getRes("bgImage"), this.stage.stageWidth / 2, this.stage.stageHeight / 2);
-        this.addChild(sky);
-        console.log('h=====', GameUtil.setscreenY(40));
-        var curpetext = new GameUtil.MyTextField(311, GameUtil.setscreenY(40), 40);
-        curpetext.fontFamily = '楷体';
-        curpetext.textColor = 0xff0000;
-        curpetext.setText('位置测试');
-        this.addChild(curpetext);
+        GameUtil.GameScene.runscene(new GameStartScene());
     };
     return Main;
 })(egret.DisplayObjectContainer);

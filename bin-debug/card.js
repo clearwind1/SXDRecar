@@ -14,6 +14,10 @@ var cardsprite = (function (_super) {
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.recard, this);
     };
     p.recard = function (evt) {
+        if (GameScence._i().recarding) {
+            return;
+        }
+        GameScence._i().recarding = true;
         this.touchEnabled = false;
         var self = this;
         var cardname = 'card' + this.cardID + '_png';
@@ -28,6 +32,7 @@ var cardsprite = (function (_super) {
             self.setNewTexture(RES.getRes(cardname));
         }).to({ scaleX: 1 }, 500).call(function () {
             self.touchEnabled = true;
+            GameScence._i().recarding = false;
         });
     };
     p.finishrecard = function () {
@@ -35,10 +40,12 @@ var cardsprite = (function (_super) {
         if (recardnum == 0) {
             GameScence._i().setrecardnum(1);
             GameScence._i().setcurrecard(this);
+            GameScence._i().recarding = false;
         }
         else {
             //判断两张卡是否同样
             if (this.cardID == GameScence._i().getcurrecard().cardID) {
+                GameScence._i().recarding = false;
                 var recardcount = GameScence._i().getrecardcount();
                 recardcount++;
                 GameScence._i().setrecardcount(recardcount);

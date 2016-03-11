@@ -11,6 +11,7 @@ var GameScence = (function (_super) {
         this.recardnum = 0;
         this.currecard = null;
         this.recardcount = 0;
+        this.recarding = false;
     }
     var d = __define,c=GameScence;p=c.prototype;
     p.init = function () {

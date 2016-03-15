@@ -12,6 +12,7 @@ var game_file_list = [
 	"bin-debug/CardScene.js",
 	"bin-debug/GameScence.js",
 	"bin-debug/GameStartScene.js",
+	"bin-debug/GameUtils2_5/AdaptGamelayer.js",
 	"bin-debug/GameUtils2_5/MyBitmap.js",
 	"bin-debug/GameUtils2_5/Animation.js",
 	"bin-debug/GameUtils2_5/GetImageByUrl.js",

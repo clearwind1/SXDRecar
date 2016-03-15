@@ -28,16 +28,18 @@ class GameScence extends GameUtil.BassPanel
     private show()
     {
 
-        this.card[0] = new cardsprite(RES.getRes('cardback_png'),this.mStageW/2,GameUtil.setscreenY(200),0);
-        this.addChild(this.card[0]);
-
-        this.card[1] = new cardsprite(RES.getRes('cardback_png'),this.mStageW/2,GameUtil.setscreenY(400),0);
-        this.addChild(this.card[1]);
-
-
         this.addChild(TimePanel._i());
         TimePanel._i().$setAnchorOffsetY(TimePanel._i().height);
         TimePanel._i().y = this.mStageH;
+
+        this.addChild( AdaptGamelayer._i());
+        AdaptGamelayer._i().init(this.mStageH-60);
+
+        this.card[0] = new cardsprite(RES.getRes('cardback_png'),this.mStageW/2,GameUtil.setscreenY(200),0);
+        AdaptGamelayer._i().putItme(this.card[0]);
+
+        this.card[1] = new cardsprite(RES.getRes('cardback_png'),this.mStageW/2,GameUtil.setscreenY(700),0);
+        AdaptGamelayer._i().putItme(this.card[1],true);
 
     }
 
@@ -70,11 +72,11 @@ class GameScence extends GameUtil.BassPanel
 
     public successGame()
     {
-
+        console.log('successgame');
     }
     public gameOver()
     {
-
+        console.log('gameover');
     }
 
     private static ints: GameScence;

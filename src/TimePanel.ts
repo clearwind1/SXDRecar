@@ -8,7 +8,7 @@ class TimePanel extends GameUtil.BassPanel
 {
 
     private timebar: GameUtil.MyBitmap;
-    private intervaltag: number;
+    public intervaltag: number;
 
     public constructor()
     {

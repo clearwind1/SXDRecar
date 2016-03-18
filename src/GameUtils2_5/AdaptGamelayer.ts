@@ -2,7 +2,7 @@
  * Created by pior on 16/3/14.
  */
 
-class AdaptGamelayer extends egret.DisplayObjectContainer
+class AdaptGamelayer extends GameUtil.BassPanel
 {
     private maxheight: number;
 
@@ -11,24 +11,29 @@ class AdaptGamelayer extends egret.DisplayObjectContainer
         super();
     }
 
-    public init(maxheight:number)
+    public initlayer(maxheight:number)
     {
         this.maxheight = maxheight;
     }
 
-    public putItme(child:egret.DisplayObject,isend:boolean=false)
+    public putItme(child:egret.DisplayObject)
     {
         this.addChild(child);
+    }
 
-        if(isend)
+    public adpat()
+    {
+        var sc: number = 1;
+       // console.log('adh=====',this.$getHeight(),'maxh======',this.maxheight);
+        if(this.$getHeight()> this.maxheight)
         {
-            if(this.$getHeight()> this.maxheight)
-            {
-                var sc = this.maxheight/this.$getHeight();
-                this.scaleX = this.scaleY = sc;
-            }
+            sc = this.maxheight/this.$getHeight();
+            this.scaleX = this.scaleY = sc;
 
         }
+
+        var disw: number = (this.mStageW-this.$getWidth()*sc)/2;
+        this.x = disw;
     }
 
 

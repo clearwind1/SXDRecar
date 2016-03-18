@@ -16,8 +16,8 @@ module GameUtil
         public static TransAlpha:number = 2;            //淡入淡出
         public static OpenDoor:number = 3;              //开门方式
 
-        public static DesignWidth:number = 480;
-        public static DesignHeight:number = 800;
+        public static DesignWidth:number = 750;
+        public static DesignHeight:number = 1334;
 
         private stagetY: number = 0;
 
@@ -188,7 +188,7 @@ module GameUtil
 
     export function setscreenY(y:number):number{
 
-        if(y >= GameConfig._i().getSH()/2){
+        if(y >= GameUtil.GameConfig.DesignHeight/2){
             return GameConfig._i().getSH() - (GameUtil.GameConfig.DesignHeight-y);
         }else
         {

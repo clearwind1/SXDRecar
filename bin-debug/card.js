@@ -5,6 +5,7 @@ var cardsprite = (function (_super) {
     __extends(cardsprite, _super);
     function cardsprite(texture, posx, posy, cardid) {
         _super.call(this, texture, posx, posy);
+        this.turntime = 200;
         this.initcard(cardid);
     }
     var d = __define,c=cardsprite;p=c.prototype;
@@ -20,17 +21,17 @@ var cardsprite = (function (_super) {
         GameScence._i().recarding = true;
         this.touchEnabled = false;
         var self = this;
-        var cardname = 'card' + this.cardID + '_png';
-        egret.Tween.get(this).to({ scaleX: 0 }, 500).call(function () {
+        var cardname = 'card' + 0 + '_png'; //'card'+this.cardID+'_png';
+        egret.Tween.get(this).to({ scaleX: 0 }, self.turntime).call(function () {
             self.setNewTexture(RES.getRes(cardname));
-        }).to({ scaleX: 1 }, 500).call(self.finishrecard, self);
+        }).to({ scaleX: 1 }, self.turntime).call(self.finishrecard, self);
     };
     p.returnrecard = function () {
         var self = this;
         var cardname = 'cardback_png';
-        egret.Tween.get(this).to({ scaleX: 0 }, 500).call(function () {
+        egret.Tween.get(this).to({ scaleX: 0 }, self.turntime).call(function () {
             self.setNewTexture(RES.getRes(cardname));
-        }).to({ scaleX: 1 }, 500).call(function () {
+        }).to({ scaleX: 1 }, self.turntime).call(function () {
             self.touchEnabled = true;
             GameScence._i().recarding = false;
         });
@@ -50,6 +51,7 @@ var cardsprite = (function (_super) {
                 recardcount++;
                 GameScence._i().setrecardcount(recardcount);
                 if (recardcount == GameScence.TotalCard) {
+                    egret.clearInterval(TimePanel._i().intervaltag);
                     GameScence._i().successGame();
                 }
             }

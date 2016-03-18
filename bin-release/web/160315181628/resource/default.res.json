@@ -1,7 +1,7 @@
 {
 	"groups":[
 	{
-		"keys":"bgImage,egretIcon,frame_png,card0_png,cardback_png,bottom_png",
+		"keys":"bgImage,egretIcon,frame_png,card0_png,cardback_png",
 		"name":"preload"
 	},
 	{
@@ -43,10 +43,5 @@
 		"name":"cardback_png",
 		"type":"image",
 		"url":"assets/cardback.png"
-	},
-	{
-		"name":"bottom_png",
-		"type":"image",
-		"url":"assets/bottom.png"
 	}]
 }

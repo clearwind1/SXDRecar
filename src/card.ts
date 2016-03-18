@@ -7,6 +7,8 @@ class cardsprite extends GameUtil.MyBitmap
 
     public cardID: number;
 
+    private turntime: number = 200;
+
     public constructor(texture:egret.Texture,posx:number,posy:number,cardid: number)
     {
         super(texture,posx,posy);
@@ -33,10 +35,10 @@ class cardsprite extends GameUtil.MyBitmap
         this.touchEnabled = false;
 
         var self: any = this;
-        var cardname: string = 'card'+this.cardID+'_png';
-        egret.Tween.get(this).to({scaleX:0},500).call(function(){
+        var cardname: string = 'card'+0+'_png';//'card'+this.cardID+'_png';
+        egret.Tween.get(this).to({scaleX:0},self.turntime).call(function(){
             self.setNewTexture(RES.getRes(cardname));
-        }).to({scaleX:1},500).call(self.finishrecard,self);
+        }).to({scaleX:1},self.turntime).call(self.finishrecard,self);
 
     }
 
@@ -44,9 +46,9 @@ class cardsprite extends GameUtil.MyBitmap
     {
         var self: any = this;
         var cardname: string = 'cardback_png';
-        egret.Tween.get(this).to({scaleX:0},500).call(function(){
+        egret.Tween.get(this).to({scaleX:0},self.turntime).call(function(){
             self.setNewTexture(RES.getRes(cardname));
-        }).to({scaleX:1},500).call(function(){
+        }).to({scaleX:1},self.turntime).call(function(){
             self.touchEnabled = true;
             GameScence._i().recarding = false;
         });
@@ -72,6 +74,7 @@ class cardsprite extends GameUtil.MyBitmap
                 recardcount++;
                 GameScence._i().setrecardcount(recardcount);
                 if(recardcount == GameScence.TotalCard){
+                    egret.clearInterval(TimePanel._i().intervaltag);
                     GameScence._i().successGame();
                 }
             }

@@ -7,18 +7,21 @@ var AdaptGamelayer = (function (_super) {
         _super.call(this);
     }
     var d = __define,c=AdaptGamelayer;p=c.prototype;
-    p.init = function (maxheight) {
+    p.initlayer = function (maxheight) {
         this.maxheight = maxheight;
     };
-    p.putItme = function (child, isend) {
-        if (isend === void 0) { isend = false; }
+    p.putItme = function (child) {
         this.addChild(child);
-        if (isend) {
-            if (this.$getHeight() > this.maxheight) {
-                var sc = this.maxheight / this.$getHeight();
-                this.scaleX = this.scaleY = sc;
-            }
+    };
+    p.adpat = function () {
+        var sc = 1;
+        // console.log('adh=====',this.$getHeight(),'maxh======',this.maxheight);
+        if (this.$getHeight() > this.maxheight) {
+            sc = this.maxheight / this.$getHeight();
+            this.scaleX = this.scaleY = sc;
         }
+        var disw = (this.mStageW - this.$getWidth() * sc) / 2;
+        this.x = disw;
     };
     AdaptGamelayer._i = function () {
         if (this.inst == null) {
@@ -27,5 +30,5 @@ var AdaptGamelayer = (function (_super) {
         return this.inst;
     };
     return AdaptGamelayer;
-})(egret.DisplayObjectContainer);
+})(GameUtil.BassPanel);
 egret.registerClass(AdaptGamelayer,"AdaptGamelayer");

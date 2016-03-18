@@ -15,18 +15,40 @@ var GameScence = (function (_super) {
     }
     var d = __define,c=GameScence;p=c.prototype;
     p.init = function () {
+        this.gametime = new Date().getTime();
+        console.log('gametime====', this.gametime);
         this.show();
     };
     p.show = function () {
+        //console.log('hhhh======',this.mStageH);
+        this.discovercont = new egret.DisplayObjectContainer();
+        var bottom = new GameUtil.MyBitmap(RES.getRes('bottom_png'), 375, this.mStageH);
+        bottom.setanchorOff(0.5, 1);
+        this.addChild(bottom);
         this.addChild(TimePanel._i());
         TimePanel._i().$setAnchorOffsetY(TimePanel._i().height);
         TimePanel._i().y = this.mStageH;
         this.addChild(AdaptGamelayer._i());
-        AdaptGamelayer._i().init(this.mStageH - 60);
-        this.card[0] = new cardsprite(RES.getRes('cardback_png'), this.mStageW / 2, GameUtil.setscreenY(200), 0);
-        AdaptGamelayer._i().putItme(this.card[0]);
-        this.card[1] = new cardsprite(RES.getRes('cardback_png'), this.mStageW / 2, GameUtil.setscreenY(700), 0);
-        AdaptGamelayer._i().putItme(this.card[1], true);
+        AdaptGamelayer._i().initlayer(this.mStageH - 158);
+        for (var i = 0; i < 3; i++) {
+            for (var j = 0; j < 4; j++) {
+                this.card[i + j * 3] = new cardsprite(RES.getRes('cardback_png'), 97 + i * 227, 180 + j * 296, Math.floor((i + j * 3) / 2));
+                AdaptGamelayer._i().putItme(this.card[i + j * 3]);
+            }
+        }
+        AdaptGamelayer._i().adpat();
+        /*
+        for(var i:number=0;i < 10;i++){
+            var rd:number = Math.floor(Math.random()*100)%12;
+            var rdr: number = Math.floor(Math.random()*100)%12;
+            var posfx = this.card[rd].x;
+            var posfy = this.card[rd].y;
+            this.card[rd].x = this.card[rdr].x;
+            this.card[rd].y = this.card[rdr].y;
+            this.card[rdr].x = posfx;
+            this.card[rdr].y = posfy;
+        }
+        */
     };
     p.setcurrecard = function (recard) {
         this.currecard = recard;
@@ -47,10 +69,24 @@ var GameScence = (function (_super) {
         return this.recardcount;
     };
     p.successGame = function () {
-        console.log('successgame');
+        var endtime = new Date().getTime();
+        var runtime = (endtime - this.gametime) / 1000;
+        console.log('endtime=====', runtime);
+        this.addChild(this.discovercont);
+        this.discovercont.touchEnabled = true;
+        var cover = GameUtil.createRect(0, 0, this.mStageW, this.mStageH, 0.6);
+        this.discovercont.addChild(cover);
+        var usetimetext = new GameUtil.MyTextField(this.mStageW / 2, GameUtil.setscreenY(500), 35);
+        usetimetext.setText('您的成绩是' + runtime + '秒');
+        usetimetext.textColor = 0xff7544;
+        this.discovercont.addChild(usetimetext);
     };
     p.gameOver = function () {
         console.log('gameover');
+        this.addChild(this.discovercont);
+        this.discovercont.touchEnabled = true;
+        var cover = GameUtil.createRect(0, 0, this.mStageW, this.mStageH, 0.6);
+        this.discovercont.addChild(cover);
     };
     GameScence._i = function () {
         if (this.ints == null) {

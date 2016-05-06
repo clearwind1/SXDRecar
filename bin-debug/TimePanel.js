@@ -13,23 +13,46 @@ var TimePanel = (function (_super) {
         this.show();
     };
     p.show = function () {
-        var timetext = new GameUtil.MyTextField(30, 15, 30, 0);
-        timetext.setText('Time:');
+        this.bchanger = false;
+        this.bchangey = false;
+        var timetext = new GameUtil.MyBitmap(RES.getRes('Timepic_png'), 60, GameUtil.setscreenY(1265));
         this.addChild(timetext);
-        this.timebar = new GameUtil.MyBitmap(RES.getRes('loadingbar_png'), 115, 15);
+        this.timebar = new GameUtil.MyBitmap(RES.getRes('timepro_png'), 120, GameUtil.setscreenY(1268));
         this.timebar.setanchorOff(0, 0.5);
         this.addChild(this.timebar);
-        //this.timebar.scale9Grid = new egret.Rectangle(15,7,270,10);
-        this.intervaltag = egret.setInterval(this.timerun, this, 100);
+        this.intervaltag = egret.setInterval(this.timerun, this, 300);
     };
-    p.timerun = function () {
+    p.cutTimesc = function () {
         var sc = this.timebar.$getScaleX();
         sc -= 0.01;
         this.timebar.$setScaleX(sc);
-        if (sc <= 0) {
-            egret.clearInterval(this.intervaltag);
-            GameScence._i().gameOver();
+    };
+    p.timerun = function () {
+        if (GameScence._i().gamestate == GameState.gamepause) {
+            return;
         }
+        GameScence._i().costime += 300;
+        var sc = this.timebar.$getScaleX();
+        sc -= 0.01;
+        this.timebar.$setScaleX(sc);
+        if (!this.bchanger && sc <= 0.15) {
+            this.bchanger = true;
+            this.timebar.setNewTexture(RES.getRes('redtimepro_png'));
+        }
+        if (sc <= 0.4 && !this.bchangey) {
+            this.bchangey = true;
+            this.timebar.setNewTexture(RES.getRes('yelltimepro_png'));
+        }
+        //console.log('sc======',sc);
+        if (sc <= 0) {
+            this.timebar.$setScaleX(0);
+            console.log('gameover');
+            GameScence._i().gameOver();
+            egret.clearInterval(this.intervaltag);
+        }
+    };
+    p.reset = function () {
+        this.timebar.$setScaleX(1);
     };
     TimePanel._i = function () {
         if (this.inst == null) {

@@ -27,6 +27,11 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
+enum GameState {
+    gaming,gamepause,gameover
+}
+
+
 class Main extends egret.DisplayObjectContainer {
 
     /**
@@ -42,8 +47,11 @@ class Main extends egret.DisplayObjectContainer {
 
     private onAddToStage(event:egret.Event) {
         //设置加载进度界面
+        if(window.screen.availHeight < window.screen.availWidth){
+            this.stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
+        }
         GameUtil.GameScene.init(this.stage);
-        GameUtil.GameScene.runscene(new GameUtil.LoadingPanel(this.createGameScene,this,0,0,true));
+        GameUtil.GameScene.runscene(new GameUtil.LoadingPanel(this.createGameScene,this,0,0));
     }
 
     /**
@@ -52,13 +60,12 @@ class Main extends egret.DisplayObjectContainer {
      */
     private createGameScene():void {
 
-        if(window.screen.availHeight < window.screen.availWidth){
-            this.stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
-        }
-
         //console.log('w====',this.stage.stageWidth,'h======',this.stage.stageHeight);
 
+        GameUtil.Http.getinstance();
+
         GameUtil.GameConfig._i().setStageHeight(this.stage.stageHeight);
+        GameUtil.GameConfig._i().bfirstplay = true;
         GameUtil.GameScene.runscene(new GameStartScene());
 
     }

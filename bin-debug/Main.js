@@ -26,6 +26,12 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////////////////////
+var GameState;
+(function (GameState) {
+    GameState[GameState["gaming"] = 0] = "gaming";
+    GameState[GameState["gamepause"] = 1] = "gamepause";
+    GameState[GameState["gameover"] = 2] = "gameover";
+})(GameState || (GameState = {}));
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -35,19 +41,21 @@ var Main = (function (_super) {
     var d = __define,c=Main;p=c.prototype;
     p.onAddToStage = function (event) {
         //设置加载进度界面
+        if (window.screen.availHeight < window.screen.availWidth) {
+            this.stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
+        }
         GameUtil.GameScene.init(this.stage);
-        GameUtil.GameScene.runscene(new GameUtil.LoadingPanel(this.createGameScene, this, 0, 0, true));
+        GameUtil.GameScene.runscene(new GameUtil.LoadingPanel(this.createGameScene, this, 0, 0));
     };
     /**
      * 创建游戏场景
      * Create a game scene
      */
     p.createGameScene = function () {
-        if (window.screen.availHeight < window.screen.availWidth) {
-            this.stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
-        }
         //console.log('w====',this.stage.stageWidth,'h======',this.stage.stageHeight);
+        GameUtil.Http.getinstance();
         GameUtil.GameConfig._i().setStageHeight(this.stage.stageHeight);
+        GameUtil.GameConfig._i().bfirstplay = true;
         GameUtil.GameScene.runscene(new GameStartScene());
     };
     return Main;

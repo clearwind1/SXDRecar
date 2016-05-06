@@ -6,18 +6,20 @@ class cardsprite extends GameUtil.MyBitmap
 {
 
     public cardID: number;
+    private currdid: number;
 
-    private turntime: number = 200;
+    private turntime: number = 100;
 
-    public constructor(texture:egret.Texture,posx:number,posy:number,cardid: number)
+    public constructor(texture:egret.Texture,posx:number,posy:number,cardid: number,slcardid: number)
     {
         super(texture,posx,posy);
-        this.initcard(cardid);
+        this.initcard(cardid,slcardid);
     }
 
-    private initcard(cardid: number)
+    private initcard(cardid: number,slcardid:number)
     {
         this.cardID = cardid;
+        this.currdid = slcardid;
 
         this.touchEnabled = true;
         this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.recard,this);
@@ -35,7 +37,8 @@ class cardsprite extends GameUtil.MyBitmap
         this.touchEnabled = false;
 
         var self: any = this;
-        var cardname: string = 'card'+0+'_png';//'card'+this.cardID+'_png';
+
+        var cardname: string = 'card'+this.currdid+'_png';
         egret.Tween.get(this).to({scaleX:0},self.turntime).call(function(){
             self.setNewTexture(RES.getRes(cardname));
         }).to({scaleX:1},self.turntime).call(self.finishrecard,self);
@@ -80,8 +83,13 @@ class cardsprite extends GameUtil.MyBitmap
             }
             else
             {
-                this.returnrecard();
-                GameScence._i().getcurrecard().returnrecard();
+                var self: any = this;
+                var gsc: any = GameScence._i().getcurrecard();
+                egret.setTimeout(function(){
+                    self.returnrecard();
+                    gsc.returnrecard();
+                },this,300);
+
             }
             GameScence._i().setrecardnum(0);
             GameScence._i().setcurrecard(null);

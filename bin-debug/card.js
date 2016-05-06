@@ -3,14 +3,15 @@
  */
 var cardsprite = (function (_super) {
     __extends(cardsprite, _super);
-    function cardsprite(texture, posx, posy, cardid) {
+    function cardsprite(texture, posx, posy, cardid, slcardid) {
         _super.call(this, texture, posx, posy);
-        this.turntime = 200;
-        this.initcard(cardid);
+        this.turntime = 100;
+        this.initcard(cardid, slcardid);
     }
     var d = __define,c=cardsprite;p=c.prototype;
-    p.initcard = function (cardid) {
+    p.initcard = function (cardid, slcardid) {
         this.cardID = cardid;
+        this.currdid = slcardid;
         this.touchEnabled = true;
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.recard, this);
     };
@@ -21,7 +22,7 @@ var cardsprite = (function (_super) {
         GameScence._i().recarding = true;
         this.touchEnabled = false;
         var self = this;
-        var cardname = 'card' + 0 + '_png'; //'card'+this.cardID+'_png';
+        var cardname = 'card' + this.currdid + '_png';
         egret.Tween.get(this).to({ scaleX: 0 }, self.turntime).call(function () {
             self.setNewTexture(RES.getRes(cardname));
         }).to({ scaleX: 1 }, self.turntime).call(self.finishrecard, self);
@@ -56,8 +57,12 @@ var cardsprite = (function (_super) {
                 }
             }
             else {
-                this.returnrecard();
-                GameScence._i().getcurrecard().returnrecard();
+                var self = this;
+                var gsc = GameScence._i().getcurrecard();
+                egret.setTimeout(function () {
+                    self.returnrecard();
+                    gsc.returnrecard();
+                }, this, 300);
             }
             GameScence._i().setrecardnum(0);
             GameScence._i().setcurrecard(null);
